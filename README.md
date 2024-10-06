@@ -2,6 +2,14 @@
 A Survival Guide In Linux!
 
 
+```
+<details>
+  <summary>Problems And Solutions</summary>
+
+</details>
+```
+
+
 
 <details>
   <summary>Problems And Solutions</summary>
@@ -15,16 +23,7 @@ Solution:
 - Problem: tar.bz2 files, how to open?
   - Solution: `engrampa or xarchiver (engrampa worked)`
 
-
 </details>
-
-
-
-<details>
-  <summary>Basic Part</summary>
-
-</details>
-
 
 <details>
   <summary>Desktop Part</summary>
@@ -70,11 +69,21 @@ sudo apt install kde-plasma
 
 
 
-
 # A script which uses Zenity for gui boxes
 ## it lets you choose the desktop environment to install then it outputs the command 
 
+
+<details>
+  <summary>Screenshots</summary>
+
 ![image](https://github.com/user-attachments/assets/fcdc7d83-0864-43c0-8032-31acae35ce91)
+![image](https://github.com/user-attachments/assets/697b9f9c-2bb1-462f-9826-8cb76b1f58b5)
+
+</details>
+
+<details>
+  <summary>Script A (Light Mode) </summary>
+
 
 ```sh
 
@@ -139,10 +148,75 @@ esac
 
 # Output the command
 output_install_command "$pkg" | zenity --info --text="$(output_install_command "$pkg")"
-
-
 ```
 
+</details>
+
+
+<details>
+  <summary>Script B (Dark mode)</summary>
+
+
+
+```sh
+#!/bin/bash
+
+# Function to output the install command for the selected desktop environment
+output_install_command() {
+    local desktop_env="$1"
+    echo "Command to install $desktop_env: sudo apt install -y $desktop_env"
+}
+
+# Create a list of desktop environments
+desktop_envs=("GNOME" "KDE" "XFCE" "LXQt" "MATE" "Cinnamon")
+
+# Set the GTK theme to dark mode
+export GTK_THEME="Adwaita:dark"
+
+# Create a selection dialog
+chosen_env=$(zenity --list \
+    --title="Choose Desktop Environment" \
+    --text="Select a desktop environment to install:" \
+    --column="Desktop Environments" "${desktop_envs[@]}" \
+    --height=300 --width=400)
+
+# Check if the user made a selection
+if [ -z "$chosen_env" ]; then
+    zenity --error --text="No selection made. Exiting."
+    exit 1
+fi
+
+# Map the selection to the corresponding package name
+case "$chosen_env" in
+    "GNOME")
+        pkg="ubuntu-desktop"
+        ;;
+    "KDE")
+        pkg="kubuntu-desktop"
+        ;;
+    "XFCE")
+        pkg="xubuntu-desktop"
+        ;;
+    "LXQt")
+        pkg="lxqt"
+        ;;
+    "MATE")
+        pkg="ubuntu-mate-desktop"
+        ;;
+    "Cinnamon")
+        pkg="cinnamon"
+        ;;
+    *)
+        zenity --error --text="Invalid selection. Exiting."
+        exit 1
+        ;;
+esac
+
+# Output the command
+output_install_command "$pkg" | zenity --info --text="$(output_install_command "$pkg")"
+```
+
+</details>
 
 
 
