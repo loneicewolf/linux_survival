@@ -2,6 +2,24 @@
 A Survival Guide In Linux!
 
 
+
+<details>
+  <summary>Problems And Solutions</summary>
+
+Problem: 
+Solution: 
+
+- Problem: Slow system, etc.
+  - Solution: `Add additional desktop environment(in this case LXDE) logout, and choose that, and login`
+
+- Problem: tar.bz2 files, how to open?
+  - Solution: `engrampa or xarchiver (engrampa worked)`
+
+
+</details>
+
+
+
 <details>
   <summary>Basic Part</summary>
 
