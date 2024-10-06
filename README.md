@@ -48,7 +48,85 @@ sudo apt install kde-plasma
 
 
 <details>
-  <summary>Security Part</summary>
+  <summary>Scripting</summary>
+
+
+
+
+# A script which uses Zenity for gui boxes
+## it lets you choose the desktop environment to install then it outputs the command 
+
+```sh
+
+#F1() {
+#    local A="$1"
+#    echo "hello: $A..."
+#    zenity --info --text="do something with $A"
+#}
+
+
+
+
+#!/bin/bash
+
+# Function to output the install command for the selected desktop environment
+output_install_command() {
+    local desktop_env="$1"
+    echo "Command to install $desktop_env: sudo apt install -y $desktop_env"
+}
+
+# Create a list of desktop environments
+desktop_envs=("GNOME" "KDE" "XFCE" "LXQt" "MATE" "Cinnamon")
+
+# Create a selection dialog
+chosen_env=$(zenity --list \
+    --title="Choose Desktop Environment" \
+    --text="Select a desktop environment to install:" \
+    --column="Desktop Environments" "${desktop_envs[@]}" \
+    --height=300 --width=400)
+
+# Check if the user made a selection
+if [ -z "$chosen_env" ]; then
+    zenity --error --text="No selection made. Exiting."
+    exit 1
+fi
+
+# Map the selection to the corresponding package name
+case "$chosen_env" in
+    "GNOME")
+        pkg="ubuntu-desktop"
+        ;;
+    "KDE")
+        pkg="kubuntu-desktop"
+        ;;
+    "XFCE")
+        pkg="xubuntu-desktop"
+        ;;
+    "LXQt")
+        pkg="lxqt"
+        ;;
+    "MATE")
+        pkg="ubuntu-mate-desktop"
+        ;;
+    "Cinnamon")
+        pkg="cinnamon"
+        ;;
+    *)
+        zenity --error --text="Invalid selection. Exiting."
+        exit 1
+        ;;
+esac
+
+# Output the command
+output_install_command "$pkg" | zenity --info --text="$(output_install_command "$pkg")"
+
+
+```
+
+
+
+
+
 
 </details>
 
