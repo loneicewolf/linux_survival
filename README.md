@@ -56,6 +56,8 @@ sudo apt install kde-plasma
 # A script which uses Zenity for gui boxes
 ## it lets you choose the desktop environment to install then it outputs the command 
 
+![image](https://github.com/user-attachments/assets/fcdc7d83-0864-43c0-8032-31acae35ce91)
+
 ```sh
 
 #F1() {
