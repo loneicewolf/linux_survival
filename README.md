@@ -4,7 +4,7 @@ A Survival Guide In Linux!
 
 ```
 <details>
-  <summary>Problems And Solutions</summary>
+  <summary>TEMPLATE</summary>
 
 </details>
 ```
@@ -82,8 +82,7 @@ sudo apt install kde-plasma
 </details>
 
 <details>
-  <summary>Script A (Light Mode) </summary>
-
+  <summary>Script A (Light Mode)  - Desktop-Env Handling</summary>
 
 ```sh
 
@@ -154,7 +153,7 @@ output_install_command "$pkg" | zenity --info --text="$(output_install_command "
 
 
 <details>
-  <summary>Script B (Dark mode)</summary>
+  <summary>Script B (Dark mode) - Desktop-Env Handling</summary>
 
 
 
@@ -217,6 +216,120 @@ output_install_command "$pkg" | zenity --info --text="$(output_install_command "
 ```
 
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<details>
+  <summary>Script B (Dark mode) - SSH Handling</summary>
+
+```sh
+
+#!/bin/bash
+
+# Function to output the install command for the selected SSH option
+output_command() {
+    local action="$1"
+    local service="$2"
+    case "$action" in
+        "install")
+            echo "Command to install $service: sudo apt install -y $service"
+            ;;
+        "remove")
+            echo "Command to remove $service: sudo apt remove -y $service"
+            ;;
+        "enable")
+            echo "Command to enable $service: sudo systemctl enable $service"
+            ;;
+        "disable")
+            echo "Command to disable $service: sudo systemctl disable $service"
+            ;;
+        *)
+            echo "Invalid action."
+            ;;
+    esac
+}
+
+# Create a list of SSH options
+ssh_services=("OpenSSH Client" "OpenSSH Server")
+
+# Set the GTK theme to dark mode
+export GTK_THEME="Adwaita:dark"
+
+# Create a selection dialog for action
+chosen_action=$(zenity --list \
+    --title="Choose SSH Action" \
+    --text="Select an action for SSH:" \
+    --column="Actions" "install" "remove" "enable" "disable" \
+    --height=300 --width=400)
+
+# Check if the user made a selection
+if [ -z "$chosen_action" ]; then
+    zenity --error --text="No action selected. Exiting."
+    exit 1
+fi
+
+# Create a selection dialog for SSH service
+chosen_service=$(zenity --list \
+    --title="Choose SSH Service" \
+    --text="Select an SSH service:" \
+    --column="SSH Services" "${ssh_services[@]}" \
+    --height=300 --width=400)
+
+# Check if the user made a selection
+if [ -z "$chosen_service" ]; then
+    zenity --error --text="No service selected. Exiting."
+    exit 1
+fi
+
+# Map the selection to the corresponding package name
+case "$chosen_service" in
+    "OpenSSH Client")
+        service="openssh-client"
+        ;;
+    "OpenSSH Server")
+        service="openssh-server"
+        ;;
+    *)
+        zenity --error --text="Invalid selection. Exiting."
+        exit 1
+        ;;
+esac
+
+# Output the command
+output_command "$chosen_action" "$service" | zenity --info --text="$(output_command "$chosen_action" "$service")"
+
+
+```
+
+</details>
+
+
+
+
+<details>
+  <summary>A</summary>
+
+
+</details>
+
+
+
+
+
+
+
+
+
 
 
 
