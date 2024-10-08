@@ -4,7 +4,7 @@ A Survival Guide In Linux!
 
 ```
 <details>
-  <summary>TEMPLATE</summary>
+  <summary>Script _________ (Dark mode) - _________</summary>
 
 </details>
 ```
@@ -230,7 +230,7 @@ output_install_command "$pkg" | zenity --info --text="$(output_install_command "
 
 
 <details>
-  <summary>Script B (Dark mode) - SSH Handling</summary>
+  <summary>Script C (Dark mode) - SSH Handling</summary>
 
 ```sh
 
@@ -312,16 +312,6 @@ output_command "$chosen_action" "$service" | zenity --info --text="$(output_comm
 ```
 
 </details>
-
-
-
-
-<details>
-  <summary>A</summary>
-
-
-</details>
-
 
 
 
