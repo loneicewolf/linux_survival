@@ -29,22 +29,18 @@ Solution:
   <summary>Desktop Part</summary>
 
 ## Install different Desktop Environments
-- ⚠️ Note!  sometimes it can error on different OS's, like `gnome` not found, try `gnome-desktop`, or similar
+- ⚠️ Note!  sometimes it can error on different OS's, like `lxde` not found, try `lxde-desktop`, or similar
 ```sh
 
 # install and re install
 # in case of issues (Ubuntu Specific but good to know for other D.envs)
-sudo apt install ubuntu-desktop      # Installs Ubuntu desktop
-sudo apt-get install ubuntu-gnome-desktop     # installs gnome in ubuntu
-sudo apt-get install --reinstall ubuntu-gnome-desktop     # reinstalls gnome in ubuntu
+sudo apt install ubuntu-desktop
+sudo apt-get install ubuntu-gnome-desktop 
+sudo apt-get install --reinstall ubuntu-gnome-desktop 
 
 # personal choie
 sudo apt install lxde
 sudo apt install lxde-desktop
-
-# Gnome
-sudo apt install gnome
-sudo apt install gnome-desktop
 
 # Mate
 sudo apt install mate
@@ -86,15 +82,6 @@ sudo apt install kde-plasma
 
 ```sh
 
-#F1() {
-#    local A="$1"
-#    echo "hello: $A..."
-#    zenity --info --text="do something with $A"
-#}
-
-
-
-
 #!/bin/bash
 
 # Function to output the install command for the selected desktop environment
@@ -104,7 +91,7 @@ output_install_command() {
 }
 
 # Create a list of desktop environments
-desktop_envs=("GNOME" "KDE" "XFCE" "LXQt" "MATE" "Cinnamon")
+desktop_envs=("KDE" "XFCE" "LXQt" "MATE" "Cinnamon")
 
 # Create a selection dialog
 chosen_env=$(zenity --list \
@@ -121,9 +108,6 @@ fi
 
 # Map the selection to the corresponding package name
 case "$chosen_env" in
-    "GNOME")
-        pkg="ubuntu-desktop"
-        ;;
     "KDE")
         pkg="kubuntu-desktop"
         ;;
@@ -167,7 +151,7 @@ output_install_command() {
 }
 
 # Create a list of desktop environments
-desktop_envs=("GNOME" "KDE" "XFCE" "LXQt" "MATE" "Cinnamon")
+desktop_envs=("KDE" "XFCE" "LXQt" "MATE" "Cinnamon")
 
 # Set the GTK theme to dark mode
 export GTK_THEME="Adwaita:dark"
@@ -187,9 +171,6 @@ fi
 
 # Map the selection to the corresponding package name
 case "$chosen_env" in
-    "GNOME")
-        pkg="ubuntu-desktop"
-        ;;
     "KDE")
         pkg="kubuntu-desktop"
         ;;
